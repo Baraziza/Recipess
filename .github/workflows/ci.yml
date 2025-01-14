@@ -20,8 +20,11 @@
           uses: actions/checkout@v3
   
         # Step 2: Set up Docker
-        - name: Set up Docker
-          uses: docker/setup-buildx-action@v2
+        - name: Install Docker Compose
+          run: |
+            sudo apt-get update
+             sudo apt-get install -y docker-compose
+
   
         # Step 3: Build and start Docker Compose services
         - name: Build and start services
@@ -34,9 +37,8 @@
         # Step 5: Wait for Service to Be Ready
         - name: Wait for Service to Be Ready
           run: |
-            for i in {1..10}; do
-              curl -f http://recipesage_api:7270 && break || sleep 5;
-            done
+            sleep 10
+          
   
         # Step 6: Test the service with curl
         - name: Test the service
