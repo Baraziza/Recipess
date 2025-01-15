@@ -1,9 +1,9 @@
 # This config file is for RecipeSage-selfhost version 4.2.0, and RecipeSage version 2.15.3.
 
 services:
-  proxy: # The proxy must not be removed. If needed, point your own proxy to this container, rather than removing this
+  proxy:
     container_name: recipesage_proxy
-    image: baraziza/proxy:latest
+    image: baraziza/proxy:${TAG}
     ports:
     - 7270:80
     depends_on:
@@ -11,13 +11,13 @@ services:
       - api
       - pushpin
     restart: unless-stopped
-  static: # Hosts frontend assets
+  static:
     container_name: recipesage_static
-    image: baraziza/static:latest
+    image: baraziza/static:${TAG}
     restart: unless-stopped
-  api: # Hosts backend API
+  api:
     container_name: recipesage_api
-    image: baraziza/api:latest
+    image: baraziza/api:${TAG}
     depends_on:
       - postgres
       - typesense
@@ -56,14 +56,14 @@ services:
     restart: unless-stopped
   typesense:
     container_name: recipesage_typesense
-    image: baraziza/typesense:latest
+    image: baraziza/typesense:${TAG}
     volumes:
       - typesensedata:/data
     command: "--data-dir /data --api-key=recipesage_selfhost --enable-cors"
     restart: unless-stopped
   pushpin: # Provides websocket support
     container_name: recipesage_pushpin
-    image: baraziza/pushpin:latest
+    image: baraziza/pushpin:${TAG}
     entrypoint: /bin/sh -c
     command:
       [
