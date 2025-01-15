@@ -3,7 +3,7 @@
 services:
   proxy: # The proxy must not be removed. If needed, point your own proxy to this container, rather than removing this
     container_name: recipesage_proxy
-    image: julianpoy/recipesage-selfhost-proxy:v4.0.0
+    image: baraziza/proxy:latest
     ports:
     - 7270:80
     depends_on:
@@ -13,11 +13,11 @@ services:
     restart: unless-stopped
   static: # Hosts frontend assets
     container_name: recipesage_static
-    image: julianpoy/recipesage-selfhost:static-v2.15.3
+    image: baraziza/static:latest
     restart: unless-stopped
   api: # Hosts backend API
     container_name: recipesage_api
-    image: julianpoy/recipesage-selfhost:api-v2.15.3
+    image: baraziza/api:latest
     depends_on:
       - postgres
       - typesense
@@ -56,14 +56,14 @@ services:
     restart: unless-stopped
   typesense:
     container_name: recipesage_typesense
-    image: typesense/typesense:0.24.1
+    image: baraziza/typesense:latest
     volumes:
       - typesensedata:/data
     command: "--data-dir /data --api-key=recipesage_selfhost --enable-cors"
     restart: unless-stopped
   pushpin: # Provides websocket support
     container_name: recipesage_pushpin
-    image: julianpoy/pushpin:2023-09-17
+    image: baraziza/pushpin:latest
     entrypoint: /bin/sh -c
     command:
       [
