@@ -38,7 +38,7 @@ jobs:
       - name: Build and Push Services
         run: |
           export TAG=${{ github.run_number }}-${{ github.sha }}
-          docker-compose up --build 
+          docker-compose up --build -d
           docker-compose push
 
       # Step 5: Debug Docker Compose Logs
