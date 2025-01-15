@@ -12,9 +12,6 @@ jobs:
   build-and-push:
     runs-on: ubuntu-latest
 
-    env:
-      # Define a dynamic tag using the GitHub run number or commit SHA
-      TAG: ${{ github.run_number }}-${{ github.sha }}
 
     steps:
       # Step 1: Checkout the code
@@ -37,18 +34,12 @@ jobs:
       # Step 4: Build and Push Docker Compose Services
       - name: Build and Push Services
         run: |
-          export TAG=${{ github.run_number }}-${{ github.sha }}
-          docker-compose build
+          docker-compose up --build 
           docker-compose push
-          docker-compose up
 
       # Step 5: Debug Docker Compose Logs
       - name: Debug Docker Compose Logs
         run: docker-compose logs
-
-      - name: Debug TAG Variable
-        run: echo "TAG is $TAG"
-
 
       # Step 6: Wait for Service to Be Ready
       - name: Wait for Service to Be Ready
