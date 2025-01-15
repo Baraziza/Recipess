@@ -25,7 +25,6 @@ services:
       - browserless
     command: sh -c "npx prisma migrate deploy; npx nx seed prisma; npx ts-node --swc --project packages/backend/tsconfig.json packages/backend/src/bin/www"
     environment:
-      - DISABLE_REGISTRATION=true
       - STORAGE_TYPE=filesystem
       - FILESYSTEM_STORAGE_PATH=/rs-media
       - NODE_ENV=selfhost
