@@ -3,7 +3,7 @@
 services:
   proxy:
     container_name: recipesage_proxy
-    image: baraziza/recipesage-selfhost:proxy-v1-${TAG} 
+    image: baraziza/recipesage-selfhost:proxy-v1
     ports:
     - 7270:80
     depends_on:
@@ -13,11 +13,11 @@ services:
     restart: unless-stopped
   static:
     container_name: recipesage_static
-    image: baraziza/recipesage-selfhost:static-v1-${TAG} 
+    image: baraziza/recipesage-selfhost:static-v1
     restart: unless-stopped
   api:
     container_name: recipesage_api
-    image: baraziza/recipesage-selfhost:api-v1-${TAG} 
+    image: baraziza/recipesage-selfhost:api-v1
     depends_on:
       - postgres
       - typesense
@@ -56,14 +56,14 @@ services:
     restart: unless-stopped
   typesense:
     container_name: recipesage_typesense
-    image: baraziza/recipesage-selfhost:typesense-v1-${TAG} 
+    image: baraziza/recipesage-selfhost:typesense-v1
     volumes:
       - typesensedata:/data
     command: "--data-dir /data --api-key=recipesage_selfhost --enable-cors"
     restart: unless-stopped
   pushpin: # Provides websocket support
     container_name: recipesage_pushpin
-    image: baraziza/recipesage-selfhost:pushpin-v1-${TAG} 
+    image: baraziza/recipesage-selfhost:pushpin-v1
     entrypoint: /bin/sh -c
     command:
       [

@@ -12,10 +12,6 @@ jobs:
   build-and-push:
     runs-on: ubuntu-latest
 
-    env:
-      TAG: ${{ github.run_number }}-${{ github.sha }}
-
-
     steps:
       # Step 1: Checkout the code
       - name: Checkout repository
@@ -37,7 +33,6 @@ jobs:
       # Step 4: Build and Push Docker Compose Services
       - name: Build and Push Services
         run: |
-          export TAG=${{ github.run_number }}-${{ github.sha }}
           docker-compose up --build -d
           docker-compose push
 
